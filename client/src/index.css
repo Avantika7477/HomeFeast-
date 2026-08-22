@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  min-height: 100vh;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition;
+}
+
+.btn-primary {
+  @apply btn bg-clay text-white hover:bg-[#a84c1d];
+}
+
+.btn-sage {
+  @apply btn bg-sage text-white hover:bg-[#2f4636];
+}
+
+.btn-ghost {
+  @apply btn border border-ink/15 bg-white hover:bg-sand;
+}
+
+.input {
+  @apply w-full rounded-xl border border-ink/15 bg-white px-3 py-2.5 text-sm outline-none focus:border-clay;
+}
+
+.card {
+  @apply rounded-2xl border border-ink/10 bg-white p-5 shadow-sm;
+}
+
+.badge {
+  @apply inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize;
+}

@@ -1,0 +1,85 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { api } from "../api";
+
+const empty = { q: "", city: "", cuisine: "", mealType: "", mealPlan: "", maxPrice: "" };
+
+export default function Browse() {
+  const [filters, setFilters] = useState(empty);
+  const [cooks, setCooks] = useState([]);
+  const [error, setError] = useState("");
+
+  async function load(next = filters) {
+    const params = new URLSearchParams();
+    Object.entries(next).forEach(([k, v]) => {
+      if (v) params.set(k, v);
+    });
+    try {
+      const data = await api(`/api/cooks?${params.toString()}`);
+      setCooks(data.cooks);
+      setError("");
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  function set(key, value) {
+    setFilters((f) => ({ ...f, [key]: value }));
+  }
+
+  return (
+    <div>
+      <h1 className="font-display text-3xl">Find a home cook</h1>
+      <p className="mt-1 text-sm text-ink/60">Filter by city, cuisine, meal type, plan, and price.</p>
+      <form
+        className="mt-5 grid gap-2 md:grid-cols-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          load();
+        }}
+      >
+        <input className="input" placeholder="Search" value={filters.q} onChange={(e) => set("q", e.target.value)} />
+        <input className="input" placeholder="City" value={filters.city} onChange={(e) => set("city", e.target.value)} />
+        <input className="input" placeholder="Cuisine" value={filters.cuisine} onChange={(e) => set("cuisine", e.target.value)} />
+        <select className="input" value={filters.mealType} onChange={(e) => set("mealType", e.target.value)}>
+          <option value="">Meal type</option>
+          <option value="veg">Veg</option>
+          <option value="non-veg">Non-veg</option>
+        </select>
+        <select className="input" value={filters.mealPlan} onChange={(e) => set("mealPlan", e.target.value)}>
+          <option value="">Meal plan</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+        <input className="input" type="number" placeholder="Max price" value={filters.maxPrice} onChange={(e) => set("maxPrice", e.target.value)} />
+        <button className="btn-primary md:col-span-6" type="submit">
+          Apply filters
+        </button>
+      </form>
+      {error && <p className="mt-4 text-sm text-red-700">{error}</p>}
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {cooks.map((cook) => (
+          <Link key={cook._id} to={`/cooks/${cook._id}`} className="card hover:border-clay/40">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 className="font-display text-xl">{cook.kitchenName}</h2>
+                <p className="text-sm text-ink/60">{cook.city} · {(cook.cuisines || []).join(", ")}</p>
+              </div>
+              <span className="badge bg-sand">{cook.ratingAvg || "New"} ★</span>
+            </div>
+            <p className="mt-2 line-clamp-2 text-sm text-ink/70">{cook.bio}</p>
+            <p className="mt-3 text-xs text-ink/50">
+              Serves {cook.serviceAreas?.join(", ") || cook.city} · {cook.deliveryStart}–{cook.deliveryEnd}
+            </p>
+          </Link>
+        ))}
+      </div>
+      {!cooks.length && <p className="mt-8 text-sm text-ink/50">No approved cooks match these filters.</p>}
+    </div>
+  );
+}

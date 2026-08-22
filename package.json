@@ -1,0 +1,10 @@
+{
+  "name": "homefeast",
+  "private": true,
+  "description": "HomeFeast homemade tiffin platform",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "seed": "npm run seed --prefix server"
+  }
+}
