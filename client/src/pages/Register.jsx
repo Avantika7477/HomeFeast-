@@ -33,12 +33,12 @@ export default function Register() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4 py-10">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-3 py-8 sm:px-4 sm:py-10">
       <Link to="/" className="mb-6 font-display text-2xl text-clay">
         HomeFeast
       </Link>
-      <h1 className="font-display text-3xl">Create your account</h1>
-      <form className="mt-6 space-y-3" onSubmit={onSubmit}>
+      <h1 className="page-title">Create your account</h1>
+      <form className="card mt-6 space-y-3" onSubmit={onSubmit}>
         <div className="grid grid-cols-2 gap-2">
           {["customer", "cook"].map((role) => (
             <button

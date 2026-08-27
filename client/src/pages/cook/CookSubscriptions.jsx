@@ -19,12 +19,12 @@ export default function CookSubscriptions() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Subscription requests</h1>
+      <h1 className="page-title">Subscription requests</h1>
       <p className="text-sm text-ink/60">Active plan value: ₹{data.earnings}</p>
       <div className="mt-5 space-y-3">
         {data.subscriptions.map((sub) => (
-          <div key={sub._id} className="card flex flex-wrap justify-between gap-3">
-            <div>
+          <div key={sub._id} className="card flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="min-w-0">
               <p className="font-semibold">
                 {sub.customer?.name} · {sub.planType}
               </p>
@@ -32,11 +32,11 @@ export default function CookSubscriptions() {
               <span className="badge mt-2 bg-sand">{sub.status}</span>
             </div>
             {sub.status === "pending" && (
-              <div className="flex gap-2">
-                <button className="btn-primary" type="button" onClick={() => setStatus(sub._id, "active")}>
+              <div className="flex w-full gap-2 sm:w-auto">
+                <button className="btn-primary flex-1 sm:flex-none" type="button" onClick={() => setStatus(sub._id, "active")}>
                   Accept
                 </button>
-                <button className="btn-ghost" type="button" onClick={() => setStatus(sub._id, "rejected")}>
+                <button className="btn-ghost flex-1 sm:flex-none" type="button" onClick={() => setStatus(sub._id, "rejected")}>
                   Reject
                 </button>
               </div>

@@ -24,18 +24,18 @@ export default function AdminComplaints() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Complaints</h1>
+      <h1 className="page-title">Complaints</h1>
       <div className="mt-4 space-y-3">
         {items.map((c) => (
-          <div key={c._id} className="card flex flex-wrap justify-between gap-3">
-            <div>
+          <div key={c._id} className="card flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="min-w-0">
               <p className="font-semibold">{c.subject}</p>
-              <p className="text-sm text-ink/70">{c.description}</p>
+              <p className="wrap-anywhere text-sm text-ink/70">{c.description}</p>
               <p className="text-xs text-ink/50">From {c.raisedBy?.name}</p>
               <span className="badge mt-2 bg-sand">{c.status}</span>
             </div>
             {c.status !== "resolved" && (
-              <button className="btn-primary" type="button" onClick={() => resolve(c._id)}>
+              <button className="btn-primary w-full sm:w-auto" type="button" onClick={() => resolve(c._id)}>
                 Resolve
               </button>
             )}

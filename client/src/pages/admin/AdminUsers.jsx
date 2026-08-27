@@ -15,8 +15,8 @@ export default function AdminUsers() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Users</h1>
-      <div className="mt-4 overflow-x-auto">
+      <h1 className="page-title">Users</h1>
+      <div className="scroll-table mt-4">
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b border-ink/10 text-ink/50">

@@ -50,8 +50,8 @@ export default function CookPublic() {
   return (
     <div className="space-y-6">
       <div className="card">
-        <h1 className="font-display text-3xl">{cook.kitchenName}</h1>
-        <p className="text-sm text-ink/60">
+        <h1 className="page-title">{cook.kitchenName}</h1>
+        <p className="wrap-anywhere text-sm text-ink/60">
           {cook.city} · {cook.cuisines?.join(", ")} · {cook.ratingAvg} ★ ({cook.ratingCount} reviews)
         </p>
         <p className="mt-3 text-ink/80">{cook.bio}</p>
@@ -64,16 +64,16 @@ export default function CookPublic() {
         <h2 className="font-display text-2xl">Menu</h2>
         <div className="mt-4 space-y-3">
           {menu.map((item) => (
-            <div key={item._id} className="flex items-center justify-between gap-3 border-b border-ink/5 pb-3">
-              <div>
+            <div key={item._id} className="flex flex-col items-start justify-between gap-3 border-b border-ink/5 pb-3 sm:flex-row sm:items-center">
+              <div className="min-w-0">
                 <p className="font-semibold">{item.name}</p>
-                <p className="text-sm text-ink/60">
+                <p className="wrap-anywhere text-sm text-ink/60">
                   {item.mealType} · ₹{item.price} · {item.description}
                 </p>
               </div>
               {user?.role === "customer" && (
                 <input
-                  className="input w-20"
+                  className="w-24"
                   type="number"
                   min="0"
                   value={qty[item._id] || 0}
@@ -87,7 +87,7 @@ export default function CookPublic() {
 
       <section className="card">
         <h2 className="font-display text-2xl">Meal plans</h2>
-        <div className="mt-3 grid gap-3 md:grid-cols-3">
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan) => (
             <div key={plan._id} className="rounded-xl bg-sand p-4">
               <p className="font-semibold capitalize">{plan.type}</p>
@@ -116,18 +116,18 @@ export default function CookPublic() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-          <div className="flex flex-wrap gap-2">
-            <button type="button" className="btn-primary" onClick={placeOrder}>
+          <div className="grid gap-2 sm:flex sm:flex-wrap">
+            <button type="button" className="btn-primary w-full sm:w-auto" onClick={placeOrder}>
               Request order (cash)
             </button>
-            <select className="input w-auto" value={planType} onChange={(e) => setPlanType(e.target.value)}>
+            <select className="input w-full sm:w-auto" value={planType} onChange={(e) => setPlanType(e.target.value)}>
               {plans.map((p) => (
                 <option key={p._id} value={p.type}>
                   {p.type}
                 </option>
               ))}
             </select>
-            <button type="button" className="btn-sage" onClick={subscribe} disabled={!plans.length}>
+            <button type="button" className="btn-sage w-full sm:w-auto" onClick={subscribe} disabled={!plans.length}>
               Request subscription
             </button>
           </div>

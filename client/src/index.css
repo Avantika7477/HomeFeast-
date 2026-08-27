@@ -2,34 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  min-height: 100vh;
+@layer base {
+  html {
+    min-width: 320px;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    background: #faf6f0;
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img {
+    max-width: 100%;
+  }
 }
 
-.btn {
-  @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition;
-}
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center rounded-full px-4 py-2.5 text-center text-sm font-semibold leading-tight transition focus:outline-none focus:ring-2 focus:ring-clay/40 focus:ring-offset-2 sm:px-5;
+  }
 
-.btn-primary {
-  @apply btn bg-clay text-white hover:bg-[#a84c1d];
-}
+  .btn-primary {
+    @apply btn bg-clay text-white hover:bg-[#a84c1d];
+  }
 
-.btn-sage {
-  @apply btn bg-sage text-white hover:bg-[#2f4636];
-}
+  .btn-sage {
+    @apply btn bg-sage text-white hover:bg-[#2f4636];
+  }
 
-.btn-ghost {
-  @apply btn border border-ink/15 bg-white hover:bg-sand;
-}
+  .btn-ghost {
+    @apply btn border border-ink/15 bg-white hover:bg-sand;
+  }
 
-.input {
-  @apply w-full rounded-xl border border-ink/15 bg-white px-3 py-2.5 text-sm outline-none focus:border-clay;
-}
+  .input {
+    @apply min-h-11 w-full min-w-0 rounded-xl border border-ink/15 bg-white px-3 py-2.5 text-sm outline-none transition placeholder:text-ink/40 focus:border-clay focus:ring-2 focus:ring-clay/15;
+  }
 
-.card {
-  @apply rounded-2xl border border-ink/10 bg-white p-5 shadow-sm;
-}
+  .card {
+    @apply min-w-0 overflow-hidden rounded-2xl border border-ink/10 bg-white p-4 shadow-sm sm:p-5;
+  }
 
-.badge {
-  @apply inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize;
+  .badge {
+    @apply inline-flex max-w-full rounded-full px-2.5 py-1 text-xs font-semibold capitalize;
+  }
+
+  .page-title {
+    @apply font-display text-3xl leading-tight sm:text-4xl;
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-sm leading-6 text-ink/60 sm:text-base;
+  }
+
+  .scroll-table {
+    @apply max-w-full overflow-x-auto rounded-2xl border border-ink/10 bg-white;
+  }
+
+  .scroll-table table {
+    @apply min-w-[640px];
+  }
+
+  .wrap-anywhere {
+    overflow-wrap: anywhere;
+  }
 }

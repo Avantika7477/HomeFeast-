@@ -20,21 +20,21 @@ export default function AdminCooks() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Cook approvals</h1>
+      <h1 className="page-title">Cook approvals</h1>
       <div className="mt-5 space-y-3">
         {cooks.map((cook) => (
-          <div key={cook._id} className="card flex flex-wrap items-center justify-between gap-3">
-            <div>
+          <div key={cook._id} className="card flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="min-w-0">
               <p className="font-semibold">{cook.kitchenName}</p>
               <p className="text-sm text-ink/60">
                 {cook.user?.name} · {cook.city} · {cook.status}
               </p>
             </div>
-            <div className="flex gap-2">
-              <button className="btn-primary" type="button" onClick={() => setStatus(cook._id, "approved")}>
+            <div className="flex w-full gap-2 sm:w-auto">
+              <button className="btn-primary flex-1 sm:flex-none" type="button" onClick={() => setStatus(cook._id, "approved")}>
                 Approve
               </button>
-              <button className="btn-ghost" type="button" onClick={() => setStatus(cook._id, "rejected")}>
+              <button className="btn-ghost flex-1 sm:flex-none" type="button" onClick={() => setStatus(cook._id, "rejected")}>
                 Reject
               </button>
             </div>

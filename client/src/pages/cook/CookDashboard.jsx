@@ -17,7 +17,7 @@ export default function CookDashboard() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">{profile.kitchenName}</h1>
+      <h1 className="page-title">{profile.kitchenName}</h1>
       <p className="mt-1 text-sm text-ink/60">
         Status: <span className="badge bg-sand">{profile.status}</span>
         {profile.status === "pending" && " — customers will see you after admin approval."}
@@ -36,11 +36,11 @@ export default function CookDashboard() {
           <p className="font-display text-3xl">{profile.ratingAvg} ★</p>
         </div>
       </div>
-      <div className="mt-6 flex gap-3">
-        <Link className="btn-primary" to="/cook/menu">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        <Link className="btn-primary w-full sm:w-auto" to="/cook/menu">
           Edit menu
         </Link>
-        <Link className="btn-ghost" to="/cook/orders">
+        <Link className="btn-ghost w-full sm:w-auto" to="/cook/orders">
           Review requests
         </Link>
       </div>

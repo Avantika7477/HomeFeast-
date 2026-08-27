@@ -10,11 +10,11 @@ export default function AdminOrders() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">All orders</h1>
+      <h1 className="page-title">All orders</h1>
       <div className="mt-4 space-y-2">
         {orders.map((o) => (
           <div key={o._id} className="card text-sm">
-            <p className="font-semibold">
+            <p className="wrap-anywhere font-semibold">
               {o.customer?.name} → {o.cook?.kitchenName}
             </p>
             <p>

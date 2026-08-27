@@ -43,7 +43,7 @@ export default function CookMenu() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <div>
-        <h1 className="font-display text-3xl">Menu</h1>
+        <h1 className="page-title">Menu</h1>
         <form className="card mt-4 space-y-2" onSubmit={addItem}>
           <input className="input" placeholder="Dish name" value={item.name} onChange={(e) => setItem({ ...item, name: e.target.value })} required />
           <input className="input" placeholder="Description" value={item.description} onChange={(e) => setItem({ ...item, description: e.target.value })} />
@@ -58,15 +58,15 @@ export default function CookMenu() {
         </form>
         <div className="mt-4 space-y-2">
           {items.map((row) => (
-            <div key={row._id} className="card flex items-center justify-between">
-              <div>
+            <div key={row._id} className="card flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+              <div className="min-w-0">
                 <p className="font-semibold">{row.name}</p>
                 <p className="text-sm text-ink/60">
                   {row.mealType} · ₹{row.price}
                 </p>
               </div>
               <button
-                className="btn-ghost"
+                className="btn-ghost w-full sm:w-auto"
                 type="button"
                 onClick={async () => {
                   await api(`/api/menus/items/${row._id}`, { method: "DELETE" });
@@ -80,7 +80,7 @@ export default function CookMenu() {
         </div>
       </div>
       <div>
-        <h2 className="font-display text-3xl">Meal plans</h2>
+        <h2 className="page-title">Meal plans</h2>
         <form className="card mt-4 space-y-2" onSubmit={addPlan}>
           <select className="input" value={plan.type} onChange={(e) => setPlan({ ...plan, type: e.target.value })}>
             <option value="daily">Daily</option>
@@ -95,12 +95,12 @@ export default function CookMenu() {
         </form>
         <div className="mt-4 space-y-2">
           {plans.map((row) => (
-            <div key={row._id} className="card flex justify-between">
+            <div key={row._id} className="card flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
               <p className="capitalize">
                 {row.type} · ₹{row.price}
               </p>
               <button
-                className="btn-ghost"
+                className="btn-ghost w-full sm:w-auto"
                 type="button"
                 onClick={async () => {
                   await api(`/api/menus/plans/${row._id}`, { method: "DELETE" });

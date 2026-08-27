@@ -33,26 +33,26 @@ export default function CustomerOrders() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Your orders</h1>
+      <h1 className="page-title">Your orders</h1>
       {message && <p className="mt-2 text-sm text-sage">{message}</p>}
       <div className="mt-5 space-y-3">
         {orders.map((order) => (
-          <div key={order._id} className="card flex flex-wrap items-center justify-between gap-3">
-            <div>
+          <div key={order._id} className="card flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="min-w-0">
               <p className="font-semibold">{order.cook?.kitchenName}</p>
-              <p className="text-sm text-ink/60">
+              <p className="wrap-anywhere text-sm text-ink/60">
                 ₹{order.totalAmount} · {order.items.map((i) => `${i.name}×${i.quantity}`).join(", ")}
               </p>
               <span className="badge mt-2 bg-sand">{order.status}</span>
             </div>
-            <div className="flex gap-2">
+            <div className="flex w-full gap-2 sm:w-auto">
               {order.status === "pending" && (
-                <button className="btn-ghost" type="button" onClick={() => cancel(order._id)}>
+                <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => cancel(order._id)}>
                   Cancel
                 </button>
               )}
               {order.status === "completed" && (
-                <button className="btn-primary" type="button" onClick={() => review(order._id)}>
+                <button className="btn-primary w-full sm:w-auto" type="button" onClick={() => review(order._id)}>
                   Review
                 </button>
               )}

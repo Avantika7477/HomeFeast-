@@ -20,12 +20,12 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-3 py-8 sm:px-4">
       <Link to="/" className="mb-6 font-display text-2xl text-clay">
         HomeFeast
       </Link>
-      <h1 className="font-display text-3xl">Welcome back</h1>
-      <form className="mt-6 space-y-3" onSubmit={onSubmit}>
+      <h1 className="page-title">Welcome back</h1>
+      <form className="card mt-6 space-y-3" onSubmit={onSubmit}>
         <input
           className="input"
           type="email"
@@ -50,7 +50,7 @@ export default function Login() {
       <p className="mt-4 text-sm text-ink/60">
         New here? <Link to="/register" className="text-clay">Create an account</Link>
       </p>
-      <p className="mt-6 text-xs text-ink/50">
+      <p className="wrap-anywhere mt-6 text-xs leading-5 text-ink/50">
         Demo: admin@homefeast.com, student@homefeast.com, sunita@homefeast.com — password Demo@123
       </p>
     </div>

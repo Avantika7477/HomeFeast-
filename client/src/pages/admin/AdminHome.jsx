@@ -21,7 +21,7 @@ export default function AdminHome() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Admin overview</h1>
+      <h1 className="page-title">Admin overview</h1>
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {Object.entries(labels).map(([key, label]) => (
           <div key={key} className="card">

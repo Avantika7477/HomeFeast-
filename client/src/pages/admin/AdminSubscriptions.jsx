@@ -10,11 +10,11 @@ export default function AdminSubscriptions() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">All subscriptions</h1>
+      <h1 className="page-title">All subscriptions</h1>
       <div className="mt-4 space-y-2">
         {items.map((s) => (
           <div key={s._id} className="card text-sm">
-            <p className="font-semibold">
+            <p className="wrap-anywhere font-semibold">
               {s.customer?.name} → {s.cook?.kitchenName} · {s.planType}
             </p>
             <p>

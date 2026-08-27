@@ -23,11 +23,11 @@ export default function CustomerSubscriptions() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Subscriptions</h1>
+      <h1 className="page-title">Subscriptions</h1>
       <div className="mt-5 space-y-3">
         {items.map((sub) => (
-          <div key={sub._id} className="card flex items-center justify-between gap-3">
-            <div>
+          <div key={sub._id} className="card flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="min-w-0">
               <p className="font-semibold">
                 {sub.cook?.kitchenName} · {sub.planType}
               </p>
@@ -38,7 +38,7 @@ export default function CustomerSubscriptions() {
               <span className="badge mt-2 bg-sand">{sub.status}</span>
             </div>
             {sub.status !== "cancelled" && sub.status !== "rejected" && (
-              <button className="btn-ghost" type="button" onClick={() => cancel(sub._id)}>
+              <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => cancel(sub._id)}>
                 Cancel
               </button>
             )}

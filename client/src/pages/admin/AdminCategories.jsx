@@ -24,14 +24,14 @@ export default function AdminCategories() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Categories & cuisines</h1>
-      <form className="mt-4 flex flex-wrap gap-2" onSubmit={add}>
-        <input className="input max-w-xs" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
-        <select className="input w-auto" value={kind} onChange={(e) => setKind(e.target.value)}>
+      <h1 className="page-title">Categories & cuisines</h1>
+      <form className="mt-4 grid gap-2 sm:flex sm:flex-wrap" onSubmit={add}>
+        <input className="input sm:max-w-xs" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+        <select className="input w-full sm:w-auto" value={kind} onChange={(e) => setKind(e.target.value)}>
           <option value="cuisine">Cuisine</option>
           <option value="menu">Menu</option>
         </select>
-        <button className="btn-primary" type="submit">
+        <button className="btn-primary w-full sm:w-auto" type="submit">
           Add
         </button>
       </form>

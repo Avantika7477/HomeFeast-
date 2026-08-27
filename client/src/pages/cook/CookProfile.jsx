@@ -41,7 +41,7 @@ export default function CookProfilePage() {
 
   return (
     <form className="card max-w-xl space-y-3" onSubmit={save}>
-      <h1 className="font-display text-3xl">Kitchen profile</h1>
+      <h1 className="page-title">Kitchen profile</h1>
       <input className="input" value={form.kitchenName} onChange={(e) => set("kitchenName", e.target.value)} />
       <textarea className="input min-h-24" value={form.bio} onChange={(e) => set("bio", e.target.value)} />
       <input className="input" placeholder="City" value={form.city} onChange={(e) => set("city", e.target.value)} />
@@ -61,7 +61,7 @@ export default function CookProfilePage() {
         <input className="input" type="time" value={form.deliveryStart} onChange={(e) => set("deliveryStart", e.target.value)} />
         <input className="input" type="time" value={form.deliveryEnd} onChange={(e) => set("deliveryEnd", e.target.value)} />
       </div>
-      <button className="btn-primary" type="submit">
+      <button className="btn-primary w-full sm:w-auto" type="submit">
         Save
       </button>
       {message && <p className="text-sm text-sage">{message}</p>}

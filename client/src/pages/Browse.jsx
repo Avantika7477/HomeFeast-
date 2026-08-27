@@ -33,10 +33,10 @@ export default function Browse() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl">Find a home cook</h1>
-      <p className="mt-1 text-sm text-ink/60">Filter by city, cuisine, meal type, plan, and price.</p>
+      <h1 className="page-title">Find a home cook</h1>
+      <p className="page-subtitle">Filter by city, cuisine, meal type, plan, and price.</p>
       <form
-        className="mt-5 grid gap-2 md:grid-cols-6"
+        className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-6"
         onSubmit={(e) => {
           e.preventDefault();
           load();
@@ -57,18 +57,18 @@ export default function Browse() {
           <option value="monthly">Monthly</option>
         </select>
         <input className="input" type="number" placeholder="Max price" value={filters.maxPrice} onChange={(e) => set("maxPrice", e.target.value)} />
-        <button className="btn-primary md:col-span-6" type="submit">
+        <button className="btn-primary w-full sm:col-span-2 lg:col-span-6" type="submit">
           Apply filters
         </button>
       </form>
       {error && <p className="mt-4 text-sm text-red-700">{error}</p>}
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
+      <div className="mt-6 grid min-w-0 gap-4 sm:grid-cols-2">
         {cooks.map((cook) => (
           <Link key={cook._id} to={`/cooks/${cook._id}`} className="card hover:border-clay/40">
             <div className="flex items-start justify-between gap-3">
-              <div>
+              <div className="min-w-0">
                 <h2 className="font-display text-xl">{cook.kitchenName}</h2>
-                <p className="text-sm text-ink/60">{cook.city} · {(cook.cuisines || []).join(", ")}</p>
+                <p className="wrap-anywhere text-sm text-ink/60">{cook.city} · {(cook.cuisines || []).join(", ")}</p>
               </div>
               <span className="badge bg-sand">{cook.ratingAvg || "New"} ★</span>
             </div>
