@@ -5,28 +5,91 @@ const Order = require("../models/Order");
 const Subscription = require("../models/Subscription");
 const Complaint = require("../models/Complaint");
 const { auth, allow } = require("../middleware/auth");
+const { notifyUser } = require("../utils/notify");
 
 const router = express.Router();
 router.use(auth, allow("admin"));
 
 router.get("/kpis", async (_req, res) => {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
   const [
     users,
     cooks,
     pendingCooks,
+    totalCookProfiles,
     orders,
+    acceptedOrders,
     activeSubscriptions,
+    totalSubscriptions,
     openComplaints,
+    recentOrderCustomers,
+    recentSubCustomers,
+    customersWithOrders,
+    repeatOrderCustomers,
+    customersWithSubs,
+    repeatSubCustomers,
   ] = await Promise.all([
     User.countDocuments({ role: { $ne: "admin" } }),
     CookProfile.countDocuments({ status: "approved" }),
     CookProfile.countDocuments({ status: "pending" }),
+    CookProfile.countDocuments(),
     Order.countDocuments(),
+    Order.countDocuments({ status: { $in: ["accepted", "completed"] } }),
     Subscription.countDocuments({ status: "active" }),
+    Subscription.countDocuments(),
     Complaint.countDocuments({ status: { $ne: "resolved" } }),
+    Order.distinct("customer", { createdAt: { $gte: thirtyDaysAgo } }),
+    Subscription.distinct("customer", { createdAt: { $gte: thirtyDaysAgo } }),
+    Order.distinct("customer"),
+    Order.aggregate([
+      { $group: { _id: "$customer", count: { $sum: 1 } } },
+      { $match: { count: { $gte: 2 } } },
+      { $count: "total" },
+    ]),
+    Subscription.distinct("customer"),
+    Subscription.aggregate([
+      { $group: { _id: "$customer", count: { $sum: 1 } } },
+      { $match: { count: { $gte: 2 } } },
+      { $count: "total" },
+    ]),
   ]);
+
+  const mauIds = new Set([
+    ...recentOrderCustomers.map(String),
+    ...recentSubCustomers.map(String),
+  ]);
+
+  const engagedCustomers = new Set([
+    ...customersWithOrders.map(String),
+    ...customersWithSubs.map(String),
+  ]);
+  const repeatCustomers =
+    (repeatOrderCustomers[0]?.total || 0) + (repeatSubCustomers[0]?.total || 0);
+
+  const orderConversionRate = orders ? Math.round((acceptedOrders / orders) * 100) : 0;
+  const cookOnboardingRate = totalCookProfiles
+    ? Math.round((cooks / totalCookProfiles) * 100)
+    : 0;
+  const customerRetentionRate = engagedCustomers.size
+    ? Math.round((repeatCustomers / engagedCustomers.size) * 100)
+    : 0;
+
   return res.json({
-    kpis: { users, cooks, pendingCooks, orders, activeSubscriptions, openComplaints },
+    kpis: {
+      users,
+      cooks,
+      pendingCooks,
+      orders,
+      activeSubscriptions,
+      openComplaints,
+      orderConversionRate,
+      cookOnboardingRate,
+      monthlyActiveUsers: mauIds.size,
+      customerRetentionRate,
+      totalSubscriptions,
+    },
   });
 });
 
@@ -72,6 +135,20 @@ router.patch("/cooks/:id/status", async (req, res) => {
     "name email"
   );
   if (!cook) return res.status(404).json({ message: "Cook not found" });
+
+  if (status === "approved" || status === "rejected") {
+    await notifyUser({
+      userId: cook.user._id,
+      title: status === "approved" ? "Kitchen approved" : "Kitchen not approved",
+      message:
+        status === "approved"
+          ? `${cook.kitchenName} is now visible to customers.`
+          : `${cook.kitchenName} was not approved. Contact admin for details.`,
+      type: "cook",
+      link: status === "approved" ? "/cook" : "/cook/profile",
+    });
+  }
+
   return res.json({ cook });
 });
 

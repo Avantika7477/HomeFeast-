@@ -4,6 +4,7 @@ const CookProfile = require("../models/CookProfile");
 const MenuItem = require("../models/MenuItem");
 const { auth, allow } = require("../middleware/auth");
 const { getCookForUser } = require("../utils/cookAccess");
+const { notifyUser } = require("../utils/notify");
 
 const router = express.Router();
 
@@ -38,6 +39,13 @@ router.post("/", auth, allow("customer"), async (req, res) => {
     deliveryAddress,
     notes,
     paymentMethod: "cash",
+  });
+  await notifyUser({
+    userId: cook.user,
+    title: "New order request",
+    message: `${req.user.name} requested an order for ₹${totalAmount}.`,
+    type: "order",
+    link: "/cook/orders",
   });
   return res.status(201).json({ order });
 });
@@ -85,6 +93,18 @@ router.patch("/:id/status", auth, allow("cook", "customer"), async (req, res) =>
   }
   order.status = status;
   await order.save();
+
+  if (req.user.role === "cook") {
+    const statusText = status === "accepted" ? "accepted" : status === "rejected" ? "rejected" : "marked completed";
+    await notifyUser({
+      userId: order.customer,
+      title: "Order update",
+      message: `Your order has been ${statusText}.`,
+      type: "order",
+      link: "/orders",
+    });
+  }
+
   return res.json({ order });
 });
 

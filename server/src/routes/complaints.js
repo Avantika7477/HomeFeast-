@@ -1,6 +1,7 @@
 const express = require("express");
 const Complaint = require("../models/Complaint");
 const { auth, allow } = require("../middleware/auth");
+const { notifyUser } = require("../utils/notify");
 
 const router = express.Router();
 
@@ -38,6 +39,17 @@ router.patch("/:id", auth, allow("admin"), async (req, res) => {
   if (req.body.status) complaint.status = req.body.status;
   if (req.body.adminNotes !== undefined) complaint.adminNotes = req.body.adminNotes;
   await complaint.save();
+
+  if (req.body.status === "resolved") {
+    await notifyUser({
+      userId: complaint.raisedBy,
+      title: "Complaint resolved",
+      message: complaint.adminNotes || "Your complaint has been resolved by admin.",
+      type: "complaint",
+      link: "/complaints",
+    });
+  }
+
   return res.json({ complaint });
 });
 

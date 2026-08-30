@@ -39,7 +39,7 @@ HomeFeast is a **web** platform that connects customers (students, professionals
 - One-time orders and subscriptions
 - Cook accept/reject
 - Admin dashboard
-- Cash / pay-to-cook
+- Notifications for orders, subscriptions, cook approval, complaints
 
 ## 6. Out of scope (v1)
 
@@ -57,7 +57,7 @@ Visit → register/login → search/filter → view menu → choose plan or dish
 
 ## 8. Success metrics (KPIs)
 
-Admin overview shows: registered users, approved cooks, pending cooks, orders, active subscriptions, open complaints.
+Admin overview shows: registered users, approved cooks, pending cooks, orders, active subscriptions, open complaints, order conversion rate, cook onboarding rate, monthly active users, and customer retention rate.
 
 Future report metrics: conversion rate, cook onboarding rate, MAU, retention — need production traffic.
 

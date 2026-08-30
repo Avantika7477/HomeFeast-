@@ -4,6 +4,7 @@ const CookProfile = require("../models/CookProfile");
 const MealPlan = require("../models/MealPlan");
 const { auth, allow } = require("../middleware/auth");
 const { getCookForUser } = require("../utils/cookAccess");
+const { notifyUser } = require("../utils/notify");
 
 const router = express.Router();
 
@@ -35,6 +36,13 @@ router.post("/", auth, allow("customer"), async (req, res) => {
     endDate: endFromStart(start, planType),
     deliveryAddress,
     notes,
+  });
+  await notifyUser({
+    userId: cook.user,
+    title: "New subscription request",
+    message: `${req.user.name} requested a ${planType} plan.`,
+    type: "subscription",
+    link: "/cook/subscriptions",
   });
   return res.status(201).json({ subscription });
 });
@@ -82,6 +90,18 @@ router.patch("/:id/status", auth, allow("cook", "customer"), async (req, res) =>
   }
   sub.status = status;
   await sub.save();
+
+  if (req.user.role === "cook") {
+    const statusText = status === "active" ? "accepted" : status === "rejected" ? "rejected" : status;
+    await notifyUser({
+      userId: sub.customer,
+      title: "Subscription update",
+      message: `Your ${sub.planType} subscription was ${statusText}.`,
+      type: "subscription",
+      link: "/subscriptions",
+    });
+  }
+
   return res.json({ subscription: sub });
 });
 

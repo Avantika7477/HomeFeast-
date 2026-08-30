@@ -4,6 +4,7 @@ const User = require("../models/User");
 const CookProfile = require("../models/CookProfile");
 const { signToken } = require("../utils/token");
 const { auth } = require("../middleware/auth");
+const { notifyUser } = require("../utils/notify");
 
 const router = express.Router();
 
@@ -38,6 +39,18 @@ router.post("/register", async (req, res) => {
         serviceAreas: city ? [city] : [],
         status: "pending",
       });
+      const admins = await User.find({ role: "admin" });
+      await Promise.all(
+        admins.map((admin) =>
+          notifyUser({
+            userId: admin._id,
+            title: "New cook registration",
+            message: `${kitchenName || name}'s Kitchen is pending approval.`,
+            type: "cook",
+            link: "/admin/cooks",
+          })
+        )
+      );
     }
     const token = signToken(user);
     return res.status(201).json({ token, user: user.toSafeJSON() });

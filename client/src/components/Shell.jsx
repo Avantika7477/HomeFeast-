@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useAuth, homeFor } from "../context/AuthContext";
+import NotificationBell from "./NotificationBell";
 
 const customerLinks = [
   ["Browse cooks", "/browse"],
@@ -53,6 +54,7 @@ export default function Shell() {
             ))}
           </nav>
           <div className="flex shrink-0 items-center gap-2 text-sm sm:gap-3">
+            <NotificationBell />
             <span className="hidden text-ink/60 sm:inline">{user?.name}</span>
             <button type="button" className="btn-ghost px-3 sm:px-5" onClick={logout}>
               Log out

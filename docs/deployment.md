@@ -41,5 +41,8 @@ SPA fallback: all routes → `index.html` (Vite default on Vercel). Netlify `_re
 - [ ] Browse shows only approved cooks
 - [ ] Customer can request; cook can accept
 - [ ] Health: `GET /api/health`
+- [ ] Notifications bell shows order/subscription updates
+- [ ] Cook can edit menu and toggle availability
+- [ ] Admin KPI page shows conversion, MAU, retention
 
 Live URLs depend on the project owner’s accounts. After deploy, paste them at the top of `docs/final-report.md`.

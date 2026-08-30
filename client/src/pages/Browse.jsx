@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
+import { useAuth } from "../context/AuthContext";
 
 const empty = { q: "", city: "", cuisine: "", mealType: "", mealPlan: "", maxPrice: "" };
 
 export default function Browse() {
+  const { user } = useAuth();
   const [filters, setFilters] = useState(empty);
   const [cooks, setCooks] = useState([]);
   const [error, setError] = useState("");
@@ -24,8 +26,14 @@ export default function Browse() {
   }
 
   useEffect(() => {
+    if (user?.city) {
+      const next = { ...empty, city: user.city };
+      setFilters(next);
+      load(next);
+      return;
+    }
     load();
-  }, []);
+  }, [user?.city]);
 
   function set(key, value) {
     setFilters((f) => ({ ...f, [key]: value }));
@@ -34,7 +42,9 @@ export default function Browse() {
   return (
     <div>
       <h1 className="page-title">Find a home cook</h1>
-      <p className="page-subtitle">Filter by city, cuisine, meal type, plan, and price.</p>
+      <p className="page-subtitle">
+        Browse cooks in your city and service area. {user?.city ? `Showing results near ${user.city}.` : "Enter your city to find nearby tiffin providers."}
+      </p>
       <form
         className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-6"
         onSubmit={(e) => {
@@ -74,7 +84,7 @@ export default function Browse() {
             </div>
             <p className="mt-2 line-clamp-2 text-sm text-ink/70">{cook.bio}</p>
             <p className="mt-3 text-xs text-ink/50">
-              Serves {cook.serviceAreas?.join(", ") || cook.city} · {cook.deliveryStart}–{cook.deliveryEnd}
+              Serves {cook.serviceAreas?.join(", ") || cook.city} · Delivery {cook.deliveryStart}–{cook.deliveryEnd}
             </p>
           </Link>
         ))}

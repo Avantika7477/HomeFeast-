@@ -51,7 +51,9 @@ See [technical-docs.md](technical-docs.md) for routes and schemas.
 
 Deployment-ready: `client` production build, `server` `npm start`, Atlas + Render/Railway + Vercel/Netlify documented in [deployment.md](deployment.md).
 
-**Live URLs (fill after hosting):**
+**Completed in code:** notifications API, menu edit/availability, advanced KPIs, responsive UI.
+
+**Still requires your hosting accounts:**
 
 - Frontend:
 - API:
@@ -63,7 +65,7 @@ Affordable homemade access, visibility for home cooks, less restaurant dependenc
 
 ## 7. Future enhancements
 
-Online payments and wallet, native apps, meal customization, nutrition tracking, AI recommendations, map-based nearby search, image uploads.
+Online payments and wallet, native apps, meal customization, nutrition tracking, AI recommendations, map-based GPS nearby search, image uploads.
 
 ## 8. Challenges faced
 

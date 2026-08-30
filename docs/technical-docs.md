@@ -58,6 +58,7 @@ MongoDB
 | POST | `/api/reviews` | customer |
 | GET/POST | `/api/categories` | public get, admin write |
 | POST/GET/PATCH | `/api/complaints` | user / admin |
+| GET/PATCH | `/api/notifications` | logged-in user |
 | GET/PATCH | `/api/admin/*` | admin |
 
 Public cook list **always** filters `status: approved`.

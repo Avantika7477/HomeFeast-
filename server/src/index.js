@@ -12,6 +12,7 @@ const reviewRoutes = require("./routes/reviews");
 const categoryRoutes = require("./routes/categories");
 const complaintRoutes = require("./routes/complaints");
 const adminRoutes = require("./routes/admin");
+const notificationRoutes = require("./routes/notifications");
 
 const app = express();
 const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
@@ -37,6 +38,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/complaints", complaintRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: `No route for ${req.method} ${req.path}` });
