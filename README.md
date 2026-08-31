@@ -9,7 +9,10 @@ Web platform that connects students, working professionals, and others with veri
 ## Local setup
 
 1. Install [Node.js 18+](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/try/download/community) (or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)).
-2. From the repo root:
+2. **Start MongoDB** (required — or the API will show `ECONNREFUSED 127.0.0.1:27017`):
+   - Open **Services** (`Win + R` → `services.msc`) → **MongoDB Server** → **Start**
+   - Or **Administrator** PowerShell: `net start MongoDB`
+3. From the repo root:
 
 ```bash
 cd server
