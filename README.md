@@ -32,6 +32,19 @@ npm run dev
 
 3. Open http://localhost:5173
 
+### Atlas connection error `querySrv ECONNREFUSED`
+
+Use the **standard** `mongodb://` URI in `server/.env` (not `mongodb+srv://`).  
+In Atlas: **Connect → Drivers →** copy the standard connection string for database `Homemade`.
+
+Run server and seed as **two separate commands** (do not use `>>`):
+
+```bash
+npm run dev
+# new terminal:
+npm run seed
+```
+
 ### Demo accounts (after seed)
 
 Password for all: `Demo@123`

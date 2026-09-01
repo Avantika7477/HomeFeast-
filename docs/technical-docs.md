@@ -69,7 +69,7 @@ Public cook list **always** filters `status: approved`.
 
 ```
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/homefeast
+MONGO_URI=mongodb://127.0.0.1:27017/Homemade
 JWT_SECRET=long-random-string
 CLIENT_URL=http://localhost:5173
 ```
