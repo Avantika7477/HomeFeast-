@@ -40,7 +40,7 @@ export default function NotificationBell() {
       <Hint text="Open your latest order and subscription updates.">
         <button
           type="button"
-          className="relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-ink/15 bg-white text-lg hover:bg-sand"
+          className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 bg-white text-base hover:bg-sand sm:h-11 sm:w-11"
           onClick={() => setOpen((v) => !v)}
           aria-label="Notifications"
         >
@@ -60,7 +60,7 @@ export default function NotificationBell() {
             aria-label="Close notifications"
             onClick={() => setOpen(false)}
           />
-          <div className="fixed left-3 right-3 z-40 mt-2 max-h-[min(24rem,calc(100dvh-5.5rem))] overflow-hidden rounded-2xl border border-ink/10 bg-white p-3 shadow-lg sm:absolute sm:left-auto sm:right-0 sm:w-80">
+          <div className="fixed left-3 right-3 z-40 mt-2 max-h-[min(24rem,calc(100dvh-5.5rem))] overflow-hidden rounded-2xl border border-ink/[0.07] bg-white p-3 shadow-xl sm:absolute sm:left-auto sm:right-0 sm:w-80">
             <div className="mb-2 flex items-center justify-between gap-2">
               <p className="font-semibold">Notifications</p>
               {unreadCount > 0 && (

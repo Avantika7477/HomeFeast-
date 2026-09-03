@@ -45,19 +45,19 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Header */}
-      <header className="sticky top-0 z-20 border-b border-ink/10 bg-cream/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-3 py-3 sm:px-4">
-          <Link to="/" className="shrink-0 font-display text-xl text-clay sm:text-2xl">
+      <header className="sticky top-0 z-20 border-b border-ink/[0.07] bg-cream/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+          <Link to="/" className="shrink-0 font-display text-xl tracking-tight text-clay sm:text-2xl">
             HomeFeast
           </Link>
-          <nav className="hidden items-center gap-5 text-sm text-ink/70 md:flex">
-            <a href="#how-it-works" className="hover:text-ink">
+          <nav className="hidden items-center gap-1 text-sm md:flex">
+            <a href="#how-it-works" className="nav-chip">
               How it works
             </a>
-            <a href="#for-you" className="hover:text-ink">
+            <a href="#for-you" className="nav-chip">
               Who it&apos;s for
             </a>
-            <Link to="/browse" className="hover:text-ink">
+            <Link to="/browse" className="nav-chip">
               Browse cooks
             </Link>
           </nav>
@@ -91,17 +91,17 @@ export default function Landing() {
         <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-clay/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-sage/10 blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-3 py-12 sm:px-4 sm:py-16 lg:grid-cols-2 lg:items-center lg:gap-12">
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:py-16 lg:grid-cols-2 lg:items-center lg:gap-14">
           <div>
             <div className="flex flex-wrap gap-2">
-              {perks.map((perk) => (
-                <span key={perk} className="badge bg-white text-ink/70 shadow-sm">
+              {perks.slice(0, 3).map((perk) => (
+                <span key={perk} className="badge bg-white/80">
                   {perk}
                 </span>
               ))}
             </div>
 
-            <h1 className="mt-5 max-w-xl font-display text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-[3.25rem]">
+            <h1 className="mt-6 max-w-xl font-display text-4xl leading-[1.12] tracking-tight text-ink sm:text-5xl lg:text-[3.15rem]">
               Homemade tiffin, delivered by people who cook like home.
             </h1>
             <p className="mt-4 max-w-lg text-base leading-7 text-ink/70 sm:text-lg">
@@ -159,8 +159,8 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="border-y border-ink/10 bg-white/60 py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+      <section id="how-it-works" className="border-y border-ink/[0.07] bg-white/50 py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4">
           <p className="text-center text-sm font-semibold uppercase tracking-widest text-sage">
             Simple process
           </p>
@@ -184,8 +184,8 @@ export default function Landing() {
       </section>
 
       {/* Who it's for */}
-      <section id="for-you" className="py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+      <section id="for-you" className="py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4">
           <h2 className="font-display text-3xl sm:text-4xl">Made for everyone who misses home food</h2>
           <p className="mt-2 max-w-2xl text-ink/65">
             Whether you need lunch every day or want to share your cooking with the neighbourhood.
@@ -207,8 +207,8 @@ export default function Landing() {
       </section>
 
       {/* Why choose */}
-      <section className="border-t border-ink/10 bg-sand/40 py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+      <section className="border-t border-ink/[0.07] bg-sand/30 py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4">
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <div>
               <h2 className="font-display text-3xl sm:text-4xl">Why people choose HomeFeast</h2>
@@ -241,17 +241,14 @@ export default function Landing() {
                   </Link>
                 </Hint>
               </div>
-              <p className="mt-4 text-xs text-ink/45">
-                Demo login: student@homefeast.com · password Demo@123 (after running seed)
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-ink/10 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-3 text-sm text-ink/50 sm:flex-row sm:px-4">
+      <footer className="border-t border-ink/[0.07] py-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 text-sm text-ink/45 sm:flex-row">
           <p className="font-display text-lg text-clay">HomeFeast</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/browse" className="hover:text-ink">

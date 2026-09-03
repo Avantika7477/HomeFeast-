@@ -21,28 +21,37 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-3 py-8 sm:px-4">
-      <Link to="/" className="mb-6 font-display text-2xl text-clay">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4 py-10">
+      <Link to="/" className="mb-8 font-display text-2xl tracking-tight text-clay">
         HomeFeast
       </Link>
       <h1 className="page-title">Welcome back</h1>
-      <form className="card mt-6 space-y-3" onSubmit={onSubmit}>
-        <input
-          className="input"
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          required
-        />
-        <input
-          className="input"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          required
-        />
+      <p className="page-subtitle">Log in to order tiffin or manage your kitchen.</p>
+      <form className="card mt-6 space-y-4" onSubmit={onSubmit}>
+        <div>
+          <label className="label" htmlFor="login-email">Email</label>
+          <input
+            id="login-email"
+            className="input"
+            type="email"
+            placeholder="you@email.com"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
+          />
+        </div>
+        <div>
+          <label className="label" htmlFor="login-password">Password</label>
+          <input
+            id="login-password"
+            className="input"
+            type="password"
+            placeholder="Your password"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            required
+          />
+        </div>
         {error && <p className="text-sm text-red-700">{error}</p>}
         <Hint text="Sign in and go to your dashboard.">
           <button className="btn-primary w-full" type="submit">
@@ -50,8 +59,8 @@ export default function Login() {
           </button>
         </Hint>
       </form>
-      <p className="mt-4 text-sm text-ink/60">
-        New here? <Link to="/register" className="text-clay">Create an account</Link>
+      <p className="mt-5 text-sm text-ink/55">
+        New here? <Link to="/register" className="font-semibold text-clay hover:underline">Create an account</Link>
       </p>
     </div>
   );

@@ -51,34 +51,41 @@ export default function CookPublic() {
   return (
     <div className="space-y-6">
       <div className="card">
-        <h1 className="page-title">{cook.kitchenName}</h1>
-        <p className="wrap-anywhere text-sm text-ink/60">
-          {cook.city} · {cook.cuisines?.join(", ")} · {cook.ratingAvg} ★ ({cook.ratingCount} reviews)
-        </p>
-        <p className="mt-3 text-ink/80">{cook.bio}</p>
-        <p className="mt-2 text-sm text-ink/60">
-          Areas: {cook.serviceAreas?.join(", ")} · Delivery {cook.deliveryStart}–{cook.deliveryEnd}
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="page-title">{cook.kitchenName}</h1>
+            <p className="mt-1 wrap-anywhere text-sm text-ink/55">
+              {cook.city} · {cook.cuisines?.join(", ")}
+            </p>
+          </div>
+          <span className="badge">{cook.ratingAvg} ★ · {cook.ratingCount} reviews</span>
+        </div>
+        <p className="mt-4 leading-7 text-ink/75">{cook.bio}</p>
+        <p className="mt-3 text-sm text-ink/45">
+          {cook.serviceAreas?.join(", ")} · {cook.deliveryStart}–{cook.deliveryEnd}
         </p>
       </div>
 
       <section className="card">
-        <h2 className="font-display text-2xl">Menu</h2>
-        <div className="mt-4 space-y-3">
+        <h2 className="font-display text-2xl tracking-tight">Menu</h2>
+        <div className="mt-4 divide-y divide-ink/5">
           {menu.map((item) => (
-            <div key={item._id} className="flex flex-col items-start justify-between gap-3 border-b border-ink/5 pb-3 sm:flex-row sm:items-center">
+            <div key={item._id} className="flex flex-col items-start justify-between gap-3 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-center">
               <div className="min-w-0">
                 <p className="font-semibold">{item.name}</p>
-                <p className="wrap-anywhere text-sm text-ink/60">
-                  {item.mealType} · ₹{item.price} · {item.description}
+                <p className="mt-0.5 wrap-anywhere text-sm text-ink/50">
+                  {item.mealType} · ₹{item.price}
+                  {item.description ? ` · ${item.description}` : ""}
                 </p>
               </div>
               {user?.role === "customer" && (
                 <input
-                  className="w-24"
+                  className="input w-20 text-center"
                   type="number"
                   min="0"
                   value={qty[item._id] || 0}
                   onChange={(e) => setQty({ ...qty, [item._id]: Number(e.target.value) })}
+                  aria-label={`Quantity for ${item.name}`}
                 />
               )}
             </div>

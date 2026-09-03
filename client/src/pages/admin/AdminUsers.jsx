@@ -20,8 +20,8 @@ export default function AdminUsers() {
       <div className="scroll-table mt-4">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-ink/10 text-ink/50">
-              <th className="py-2">Name</th>
+            <tr className="border-b border-ink/10">
+              <th>Name</th>
               <th>Email</th>
               <th>Role</th>
               <th>City</th>
