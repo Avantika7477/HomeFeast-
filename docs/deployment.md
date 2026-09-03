@@ -2,6 +2,8 @@
 
 HomeFeast is two apps plus a database. A static host cannot run Express.
 
+**Quick start:** see **[deploy-step-by-step.md](deploy-step-by-step.md)** for copy-paste instructions (Render + Vercel + Atlas).
+
 ## 1. Database — MongoDB Atlas
 
 1. Create a free cluster.

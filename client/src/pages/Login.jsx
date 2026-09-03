@@ -50,9 +50,6 @@ export default function Login() {
       <p className="mt-4 text-sm text-ink/60">
         New here? <Link to="/register" className="text-clay">Create an account</Link>
       </p>
-      <p className="wrap-anywhere mt-6 text-xs leading-5 text-ink/50">
-        Demo: admin@homefeast.com, student@homefeast.com, sunita@homefeast.com — password Demo@123
-      </p>
     </div>
   );
 }

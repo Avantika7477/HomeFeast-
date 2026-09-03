@@ -70,6 +70,18 @@ Password for all: `Demo@123`
 - [docs/challenges-log.md](docs/challenges-log.md)
 - [docs/final-report.md](docs/final-report.md)
 - [docs/deployment.md](docs/deployment.md)
+- [docs/deploy-step-by-step.md](docs/deploy-step-by-step.md) — **start here to go live**
+
+## Deploy (production)
+
+Code and builds are ready. Follow **[docs/deploy-step-by-step.md](docs/deploy-step-by-step.md)**:
+
+1. **Render** — deploy `server/` (uses `render.yaml`)
+2. **Vercel** — deploy `client/` with `VITE_API_URL`
+3. Set `CLIENT_URL` on Render for CORS
+4. Run `npm run seed` once in Render Shell
+
+Verify: `npm run build` in `client/` succeeds locally before deploying.
 
 ## Scripts
 
