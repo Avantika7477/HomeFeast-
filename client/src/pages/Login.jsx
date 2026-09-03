@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, homeFor } from "../context/AuthContext";
+import Hint from "../components/Hint";
 
 export default function Login() {
   const { login } = useAuth();
@@ -43,9 +44,11 @@ export default function Login() {
           required
         />
         {error && <p className="text-sm text-red-700">{error}</p>}
-        <button className="btn-primary w-full" type="submit">
-          Log in
-        </button>
+        <Hint text="Sign in and go to your dashboard.">
+          <button className="btn-primary w-full" type="submit">
+            Log in
+          </button>
+        </Hint>
       </form>
       <p className="mt-4 text-sm text-ink/60">
         New here? <Link to="/register" className="text-clay">Create an account</Link>

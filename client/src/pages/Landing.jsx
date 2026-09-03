@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth, homeFor } from "../context/AuthContext";
+import Hint from "../components/Hint";
 
 const steps = [
   {
@@ -62,17 +63,23 @@ export default function Landing() {
           </nav>
           <div className="flex gap-2">
             {user ? (
-              <Link className="btn-primary px-3 sm:px-5" to={homeFor(user.role)}>
-                My dashboard
-              </Link>
+              <Hint text="Open your customer, cook, or admin dashboard.">
+                <Link className="btn-primary px-3 sm:px-5" to={homeFor(user.role)}>
+                  My dashboard
+                </Link>
+              </Hint>
             ) : (
               <>
-                <Link className="btn-ghost hidden px-3 sm:inline-flex sm:px-5" to="/login">
-                  Log in
-                </Link>
-                <Link className="btn-primary px-3 sm:px-5" to="/register">
-                  Get started
-                </Link>
+                <Hint text="Sign in with your existing HomeFeast account.">
+                  <Link className="btn-ghost hidden px-3 sm:inline-flex sm:px-5" to="/login">
+                    Log in
+                  </Link>
+                </Hint>
+                <Hint text="Create a free customer or home cook account.">
+                  <Link className="btn-primary px-3 sm:px-5" to="/register">
+                    Get started
+                  </Link>
+                </Hint>
               </>
             )}
           </div>
@@ -103,12 +110,16 @@ export default function Landing() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link className="btn-primary w-full sm:w-auto" to="/browse">
-                Find tiffin near me
-              </Link>
-              <Link className="btn-sage w-full sm:w-auto" to="/register">
-                I&apos;m a home cook
-              </Link>
+              <Hint text="Browse verified home cooks near you and view menus.">
+                <Link className="btn-primary w-full sm:w-auto" to="/browse">
+                  Find tiffin near me
+                </Link>
+              </Hint>
+              <Hint text="Register as a home cook and start receiving tiffin requests.">
+                <Link className="btn-sage w-full sm:w-auto" to="/register">
+                  I&apos;m a home cook
+                </Link>
+              </Hint>
             </div>
 
             {!user && (
@@ -138,9 +149,11 @@ export default function Landing() {
                 </li>
               ))}
             </ol>
-            <Link className="btn-primary mt-8 w-full" to={user ? "/browse" : "/register"}>
-              {user ? "Browse cooks now" : "Create free account"}
-            </Link>
+            <Hint text={user ? "See approved cooks, menus, and meal plans." : "Create an account so you can order or list your kitchen."}>
+              <Link className="btn-primary mt-8 w-full" to={user ? "/browse" : "/register"}>
+                {user ? "Browse cooks now" : "Create free account"}
+              </Link>
+            </Hint>
           </div>
         </div>
       </section>
@@ -217,12 +230,16 @@ export default function Landing() {
               <p className="text-sm font-semibold text-clay">Ready to eat better?</p>
               <p className="mt-2 font-display text-2xl">Browse cooks in your city and start today.</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Link className="btn-primary w-full sm:flex-1" to="/browse">
-                  Browse cooks
-                </Link>
-                <Link className="btn-ghost w-full sm:flex-1" to="/register">
-                  Sign up free
-                </Link>
+                <Hint text="Open the cook list and filter by city, cuisine, or price.">
+                  <Link className="btn-primary w-full sm:flex-1" to="/browse">
+                    Browse cooks
+                  </Link>
+                </Hint>
+                <Hint text="Create a free account as a customer or home cook.">
+                  <Link className="btn-ghost w-full sm:flex-1" to="/register">
+                    Sign up free
+                  </Link>
+                </Hint>
               </div>
               <p className="mt-4 text-xs text-ink/45">
                 Demo login: student@homefeast.com · password Demo@123 (after running seed)

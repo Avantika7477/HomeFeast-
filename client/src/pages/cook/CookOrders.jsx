@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 export default function CookOrders() {
   const [data, setData] = useState({ orders: [], earnings: 0 });
@@ -35,18 +36,24 @@ export default function CookOrders() {
               </div>
               {order.status === "pending" && (
                 <div className="flex w-full gap-2 sm:w-auto">
-                  <button className="btn-primary flex-1 sm:flex-none" type="button" onClick={() => setStatus(order._id, "accepted")}>
-                    Accept
-                  </button>
-                  <button className="btn-ghost flex-1 sm:flex-none" type="button" onClick={() => setStatus(order._id, "rejected")}>
-                    Reject
-                  </button>
+                  <Hint text="Accept this order so you can prepare and deliver the tiffin.">
+                    <button className="btn-primary flex-1 sm:flex-none" type="button" onClick={() => setStatus(order._id, "accepted")}>
+                      Accept
+                    </button>
+                  </Hint>
+                  <Hint text="Decline this order. The customer will be notified.">
+                    <button className="btn-ghost flex-1 sm:flex-none" type="button" onClick={() => setStatus(order._id, "rejected")}>
+                      Reject
+                    </button>
+                  </Hint>
                 </div>
               )}
               {order.status === "accepted" && (
-                <button className="btn-sage w-full sm:w-auto" type="button" onClick={() => setStatus(order._id, "completed")}>
-                  Mark completed
-                </button>
+                <Hint text="Mark the order as delivered so the customer can leave a review.">
+                  <button className="btn-sage w-full sm:w-auto" type="button" onClick={() => setStatus(order._id, "completed")}>
+                    Mark completed
+                  </button>
+                </Hint>
               )}
             </div>
           </div>

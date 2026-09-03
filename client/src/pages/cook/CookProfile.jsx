@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 export default function CookProfilePage() {
   const [form, setForm] = useState(null);
@@ -61,9 +62,11 @@ export default function CookProfilePage() {
         <input className="input" type="time" value={form.deliveryStart} onChange={(e) => set("deliveryStart", e.target.value)} />
         <input className="input" type="time" value={form.deliveryEnd} onChange={(e) => set("deliveryEnd", e.target.value)} />
       </div>
-      <button className="btn-primary w-full sm:w-auto" type="submit">
-        Save
-      </button>
+      <Hint text="Update your kitchen name, city, service areas, and delivery hours.">
+        <button className="btn-primary w-full sm:w-auto" type="submit">
+          Save
+        </button>
+      </Hint>
       {message && <p className="text-sm text-sage">{message}</p>}
     </form>
   );

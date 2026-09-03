@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
+import Hint from "../components/Hint";
 
 export default function CustomerComplaints() {
   const [items, setItems] = useState([]);
@@ -45,9 +46,11 @@ export default function CustomerComplaints() {
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           required
         />
-        <button className="btn-primary" type="submit">
-          Submit
-        </button>
+        <Hint text="Send this complaint to the admin team for review.">
+          <button className="btn-primary" type="submit">
+            Submit
+          </button>
+        </Hint>
         {message && <p className="text-sm text-sage">{message}</p>}
       </form>
       <div>

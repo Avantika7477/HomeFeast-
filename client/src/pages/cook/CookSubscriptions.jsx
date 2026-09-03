@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 export default function CookSubscriptions() {
   const [data, setData] = useState({ subscriptions: [], earnings: 0 });
@@ -33,12 +34,16 @@ export default function CookSubscriptions() {
             </div>
             {sub.status === "pending" && (
               <div className="flex w-full gap-2 sm:w-auto">
-                <button className="btn-primary flex-1 sm:flex-none" type="button" onClick={() => setStatus(sub._id, "active")}>
-                  Accept
-                </button>
-                <button className="btn-ghost flex-1 sm:flex-none" type="button" onClick={() => setStatus(sub._id, "rejected")}>
-                  Reject
-                </button>
+                <Hint text="Start this recurring meal plan for the customer.">
+                  <button className="btn-primary flex-1 sm:flex-none" type="button" onClick={() => setStatus(sub._id, "active")}>
+                    Accept
+                  </button>
+                </Hint>
+                <Hint text="Decline this subscription request.">
+                  <button className="btn-ghost flex-1 sm:flex-none" type="button" onClick={() => setStatus(sub._id, "rejected")}>
+                    Reject
+                  </button>
+                </Hint>
               </div>
             )}
           </div>

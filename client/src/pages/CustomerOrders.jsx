@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
+import Hint from "../components/Hint";
 
 export default function CustomerOrders() {
   const [orders, setOrders] = useState([]);
@@ -47,14 +48,18 @@ export default function CustomerOrders() {
             </div>
             <div className="flex w-full gap-2 sm:w-auto">
               {order.status === "pending" && (
-                <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => cancel(order._id)}>
-                  Cancel
-                </button>
+                <Hint text="Cancel this pending order before the cook accepts it.">
+                  <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => cancel(order._id)}>
+                    Cancel
+                  </button>
+                </Hint>
               )}
               {order.status === "completed" && (
-                <button className="btn-primary w-full sm:w-auto" type="button" onClick={() => review(order._id)}>
-                  Review
-                </button>
+                <Hint text="Rate this order and leave a comment for other customers.">
+                  <button className="btn-primary w-full sm:w-auto" type="button" onClick={() => review(order._id)}>
+                    Review
+                  </button>
+                </Hint>
               )}
             </div>
           </div>

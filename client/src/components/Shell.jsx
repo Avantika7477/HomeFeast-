@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useAuth, homeFor } from "../context/AuthContext";
 import NotificationBell from "./NotificationBell";
+import Hint from "./Hint";
 
 const customerLinks = [
   ["Browse cooks", "/browse"],
@@ -56,9 +57,11 @@ export default function Shell() {
           <div className="flex shrink-0 items-center gap-2 text-sm sm:gap-3">
             <NotificationBell />
             <span className="hidden text-ink/60 sm:inline">{user?.name}</span>
-            <button type="button" className="btn-ghost px-3 sm:px-5" onClick={logout}>
-              Log out
-            </button>
+            <Hint text="Sign out of your HomeFeast account on this device.">
+              <button type="button" className="btn-ghost px-3 sm:px-5" onClick={logout}>
+                Log out
+              </button>
+            </Hint>
           </div>
         </div>
         <div className="flex gap-4 overflow-x-auto px-3 pb-3 text-sm [scrollbar-width:none] lg:hidden sm:px-4">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
+import Hint from "../components/Hint";
 
 export default function CustomerSubscriptions() {
   const [items, setItems] = useState([]);
@@ -38,9 +39,11 @@ export default function CustomerSubscriptions() {
               <span className="badge mt-2 bg-sand">{sub.status}</span>
             </div>
             {sub.status !== "cancelled" && sub.status !== "rejected" && (
-              <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => cancel(sub._id)}>
-                Cancel
-              </button>
+              <Hint text="Stop this meal plan. You will not be billed for future days.">
+                <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => cancel(sub._id)}>
+                  Cancel
+                </button>
+              </Hint>
             )}
           </div>
         ))}

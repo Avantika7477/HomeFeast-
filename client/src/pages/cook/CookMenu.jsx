@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 const blankItem = { name: "", description: "", mealType: "veg", price: "", category: "Thali", available: true };
 const blankPlan = { type: "weekly", price: "", description: "", includedMeals: "Lunch" };
@@ -102,13 +103,17 @@ export default function CookMenu() {
             Available for customers
           </label>
           <div className="flex flex-col gap-2 sm:flex-row">
-            <button className="btn-primary w-full sm:w-auto" type="submit">
-              {editingId ? "Save changes" : "Add dish"}
-            </button>
-            {editingId && (
-              <button className="btn-ghost w-full sm:w-auto" type="button" onClick={cancelEdit}>
-                Cancel
+            <Hint text={editingId ? "Save the updated dish name, price, and availability." : "Add this dish to your public menu."}>
+              <button className="btn-primary w-full sm:w-auto" type="submit">
+                {editingId ? "Save changes" : "Add dish"}
               </button>
+            </Hint>
+            {editingId && (
+              <Hint text="Discard edits and go back to adding a new dish.">
+                <button className="btn-ghost w-full sm:w-auto" type="button" onClick={cancelEdit}>
+                  Cancel
+                </button>
+              </Hint>
             )}
           </div>
         </form>
@@ -129,23 +134,29 @@ export default function CookMenu() {
                 {row.description && <p className="wrap-anywhere text-sm text-ink/50">{row.description}</p>}
               </div>
               <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
-                <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => toggleAvailability(row)}>
-                  {row.available ? "Mark unavailable" : "Mark available"}
-                </button>
-                <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => startEdit(row)}>
-                  Edit
-                </button>
-                <button
-                  className="btn-ghost w-full sm:w-auto"
-                  type="button"
-                  onClick={async () => {
-                    await api(`/api/menus/items/${row._id}`, { method: "DELETE" });
-                    if (editingId === row._id) cancelEdit();
-                    load();
-                  }}
-                >
-                  Remove
-                </button>
+                <Hint text={row.available ? "Hide this dish from customers until you turn it back on." : "Show this dish on your public menu again."}>
+                  <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => toggleAvailability(row)}>
+                    {row.available ? "Mark unavailable" : "Mark available"}
+                  </button>
+                </Hint>
+                <Hint text="Load this dish into the form so you can change name, price, or details.">
+                  <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => startEdit(row)}>
+                    Edit
+                  </button>
+                </Hint>
+                <Hint text="Permanently delete this dish from your menu.">
+                  <button
+                    className="btn-ghost w-full sm:w-auto"
+                    type="button"
+                    onClick={async () => {
+                      await api(`/api/menus/items/${row._id}`, { method: "DELETE" });
+                      if (editingId === row._id) cancelEdit();
+                      load();
+                    }}
+                  >
+                    Remove
+                  </button>
+                </Hint>
               </div>
             </div>
           ))}
@@ -161,9 +172,11 @@ export default function CookMenu() {
           </select>
           <input className="input" type="number" placeholder="Price" value={plan.price} onChange={(e) => setPlan({ ...plan, price: e.target.value })} required />
           <input className="input" placeholder="Description" value={plan.description} onChange={(e) => setPlan({ ...plan, description: e.target.value })} />
-          <button className="btn-sage w-full sm:w-auto" type="submit">
-            Save plan
-          </button>
+          <Hint text="Save this daily, weekly, or monthly plan so customers can subscribe.">
+            <button className="btn-sage w-full sm:w-auto" type="submit">
+              Save plan
+            </button>
+          </Hint>
         </form>
         <div className="mt-4 space-y-2">
           {plans.map((row) => (
@@ -171,16 +184,18 @@ export default function CookMenu() {
               <p className="capitalize">
                 {row.type} · ₹{row.price}
               </p>
-              <button
-                className="btn-ghost w-full sm:w-auto"
-                type="button"
-                onClick={async () => {
-                  await api(`/api/menus/plans/${row._id}`, { method: "DELETE" });
-                  load();
-                }}
-              >
-                Remove
-              </button>
+              <Hint text="Delete this meal plan so customers can no longer subscribe to it.">
+                <button
+                  className="btn-ghost w-full sm:w-auto"
+                  type="button"
+                  onClick={async () => {
+                    await api(`/api/menus/plans/${row._id}`, { method: "DELETE" });
+                    load();
+                  }}
+                >
+                  Remove
+                </button>
+              </Hint>
             </div>
           ))}
         </div>

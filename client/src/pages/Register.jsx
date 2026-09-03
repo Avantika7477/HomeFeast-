@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, homeFor } from "../context/AuthContext";
+import Hint from "../components/Hint";
 
 export default function Register() {
   const { register } = useAuth();
@@ -41,14 +42,22 @@ export default function Register() {
       <form className="card mt-6 space-y-3" onSubmit={onSubmit}>
         <div className="grid grid-cols-2 gap-2">
           {["customer", "cook"].map((role) => (
-            <button
+            <Hint
               key={role}
-              type="button"
-              className={form.role === role ? "btn-primary" : "btn-ghost"}
-              onClick={() => set("role", role)}
+              text={
+                role === "customer"
+                  ? "Register as a customer to browse cooks and request tiffin."
+                  : "Register as a home cook to list your kitchen and receive orders."
+              }
             >
-              {role === "customer" ? "I want food" : "I cook"}
-            </button>
+              <button
+                type="button"
+                className={form.role === role ? "btn-primary w-full" : "btn-ghost w-full"}
+                onClick={() => set("role", role)}
+              >
+                {role === "customer" ? "I want food" : "I cook"}
+              </button>
+            </Hint>
           ))}
         </div>
         <input className="input" placeholder="Full name" value={form.name} onChange={(e) => set("name", e.target.value)} required />
@@ -66,9 +75,11 @@ export default function Register() {
           />
         )}
         {error && <p className="text-sm text-red-700">{error}</p>}
-        <button className="btn-primary w-full" type="submit">
-          Register
-        </button>
+        <Hint text="Create your account. Cooks stay hidden until an admin approves them.">
+          <button className="btn-primary w-full" type="submit">
+            Register
+          </button>
+        </Hint>
       </form>
       <p className="mt-4 text-sm text-ink/60">
         Already have an account? <Link to="/login" className="text-clay">Log in</Link>

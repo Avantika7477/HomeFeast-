@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 export default function AdminComplaints() {
   const [items, setItems] = useState([]);
@@ -35,9 +36,11 @@ export default function AdminComplaints() {
               <span className="badge mt-2 bg-sand">{c.status}</span>
             </div>
             {c.status !== "resolved" && (
-              <button className="btn-primary w-full sm:w-auto" type="button" onClick={() => resolve(c._id)}>
-                Resolve
-              </button>
+              <Hint text="Close this complaint and add a resolution note.">
+                <button className="btn-primary w-full sm:w-auto" type="button" onClick={() => resolve(c._id)}>
+                  Resolve
+                </button>
+              </Hint>
             )}
           </div>
         ))}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../context/AuthContext";
+import Hint from "../components/Hint";
 
 export default function CookPublic() {
   const { id } = useParams();
@@ -117,9 +118,11 @@ export default function CookPublic() {
             onChange={(e) => setAddress(e.target.value)}
           />
           <div className="grid gap-2 sm:flex sm:flex-wrap">
-            <button type="button" className="btn-primary w-full sm:w-auto" onClick={placeOrder}>
-              Request order (cash)
-            </button>
+            <Hint text="Send a one-time tiffin order. Pay the cook in cash on delivery.">
+              <button type="button" className="btn-primary w-full sm:w-auto" onClick={placeOrder}>
+                Request order (cash)
+              </button>
+            </Hint>
             <select className="input w-full sm:w-auto" value={planType} onChange={(e) => setPlanType(e.target.value)}>
               {plans.map((p) => (
                 <option key={p._id} value={p.type}>
@@ -127,9 +130,11 @@ export default function CookPublic() {
                 </option>
               ))}
             </select>
-            <button type="button" className="btn-sage w-full sm:w-auto" onClick={subscribe} disabled={!plans.length}>
-              Request subscription
-            </button>
+            <Hint text="Request a daily, weekly, or monthly meal plan from this cook.">
+              <button type="button" className="btn-sage w-full sm:w-auto" onClick={subscribe} disabled={!plans.length}>
+                Request subscription
+              </button>
+            </Hint>
           </div>
         </section>
       )}

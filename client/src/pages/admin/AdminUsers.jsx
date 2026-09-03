@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
@@ -35,16 +36,18 @@ export default function AdminUsers() {
                 <td>{u.role}</td>
                 <td>{u.city}</td>
                 <td>
-                  <button
-                    className="btn-ghost"
-                    type="button"
-                    onClick={async () => {
-                      await api(`/api/admin/users/${u._id}`, { method: "DELETE" });
-                      load();
-                    }}
-                  >
-                    Remove
-                  </button>
+                  <Hint text="Delete this user account from HomeFeast.">
+                    <button
+                      className="btn-ghost"
+                      type="button"
+                      onClick={async () => {
+                        await api(`/api/admin/users/${u._id}`, { method: "DELETE" });
+                        load();
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </Hint>
                 </td>
               </tr>
             ))}

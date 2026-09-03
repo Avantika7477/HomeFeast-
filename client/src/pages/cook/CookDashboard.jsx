@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 export default function CookDashboard() {
   const [profile, setProfile] = useState(null);
@@ -37,12 +38,16 @@ export default function CookDashboard() {
         </div>
       </div>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <Link className="btn-primary w-full sm:w-auto" to="/cook/menu">
-          Edit menu
-        </Link>
-        <Link className="btn-ghost w-full sm:w-auto" to="/cook/orders">
-          Review requests
-        </Link>
+        <Hint text="Add, edit, or hide dishes and meal plans.">
+          <Link className="btn-primary w-full sm:w-auto" to="/cook/menu">
+            Edit menu
+          </Link>
+        </Hint>
+        <Hint text="Accept or reject incoming customer orders.">
+          <Link className="btn-ghost w-full sm:w-auto" to="/cook/orders">
+            Review requests
+          </Link>
+        </Hint>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../context/AuthContext";
+import Hint from "../components/Hint";
 
 const empty = { q: "", city: "", cuisine: "", mealType: "", mealPlan: "", maxPrice: "" };
 
@@ -67,9 +68,11 @@ export default function Browse() {
           <option value="monthly">Monthly</option>
         </select>
         <input className="input" type="number" placeholder="Max price" value={filters.maxPrice} onChange={(e) => set("maxPrice", e.target.value)} />
-        <button className="btn-primary w-full sm:col-span-2 lg:col-span-6" type="submit">
-          Apply filters
-        </button>
+        <Hint text="Update the cook list using the city, cuisine, meal type, plan, and price you entered.">
+          <button className="btn-primary w-full sm:col-span-2 lg:col-span-6" type="submit">
+            Apply filters
+          </button>
+        </Hint>
       </form>
       {error && <p className="mt-4 text-sm text-red-700">{error}</p>}
       <div className="mt-6 grid min-w-0 gap-4 sm:grid-cols-2">

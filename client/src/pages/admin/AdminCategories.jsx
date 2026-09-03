@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import Hint from "../../components/Hint";
 
 export default function AdminCategories() {
   const [categories, setCategories] = useState([]);
@@ -31,23 +32,26 @@ export default function AdminCategories() {
           <option value="cuisine">Cuisine</option>
           <option value="menu">Menu</option>
         </select>
-        <button className="btn-primary w-full sm:w-auto" type="submit">
-          Add
-        </button>
+        <Hint text="Add this cuisine or menu category for cooks to use.">
+          <button className="btn-primary w-full sm:w-auto" type="submit">
+            Add
+          </button>
+        </Hint>
       </form>
       <div className="mt-4 flex flex-wrap gap-2">
         {categories.map((c) => (
-          <button
-            key={c._id}
-            type="button"
-            className="badge bg-sand"
-            onClick={async () => {
-              await api(`/api/categories/${c._id}`, { method: "DELETE" });
-              load();
-            }}
-          >
-            {c.name} · {c.kind} ×
-          </button>
+          <Hint key={c._id} text="Remove this category. Click only if you no longer need it.">
+            <button
+              type="button"
+              className="badge bg-sand"
+              onClick={async () => {
+                await api(`/api/categories/${c._id}`, { method: "DELETE" });
+                load();
+              }}
+            >
+              {c.name} · {c.kind} ×
+            </button>
+          </Hint>
         ))}
       </div>
     </div>
