@@ -106,6 +106,7 @@ async function seed() {
       status: "approved",
       ratingAvg: 4.6,
       ratingCount: 1,
+      location: { type: "Point", coordinates: [73.8077, 18.5074] }, // Kothrud, Pune
     },
     {
       user: rafiq._id,
@@ -119,6 +120,7 @@ async function seed() {
       status: "approved",
       ratingAvg: 0,
       ratingCount: 0,
+      location: { type: "Point", coordinates: [72.8697, 19.1197] }, // Andheri, Mumbai
     },
     {
       user: lakshmi._id,
@@ -132,6 +134,7 @@ async function seed() {
       status: "approved",
       ratingAvg: 0,
       ratingCount: 0,
+      location: { type: "Point", coordinates: [77.2066, 28.5494] }, // Hauz Khas, Delhi
     },
     {
       user: pending._id,
@@ -141,6 +144,7 @@ async function seed() {
       serviceAreas: ["Hadapsar"],
       cuisines: ["Gujarati"],
       status: "pending",
+      location: { type: "Point", coordinates: [73.941, 18.5089] }, // Hadapsar, Pune
     },
   ]);
 

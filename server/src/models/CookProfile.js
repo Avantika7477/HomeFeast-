@@ -14,8 +14,20 @@ const cookProfileSchema = new mongoose.Schema(
     ratingAvg: { type: Number, default: 0 },
     ratingCount: { type: Number, default: 0 },
     coverImage: { type: String, default: "" },
+    // GeoJSON Point: coordinates = [longitude, latitude]
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+      },
+      coordinates: {
+        type: [Number],
+      },
+    },
   },
   { timestamps: true }
 );
+
+cookProfileSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("CookProfile", cookProfileSchema);

@@ -11,6 +11,7 @@ export default function CookMenu() {
   const [item, setItem] = useState(blankItem);
   const [plan, setPlan] = useState(blankPlan);
   const [editingId, setEditingId] = useState(null);
+  const [editingPlan, setEditingPlan] = useState(false);
   const [message, setMessage] = useState("");
 
   async function load() {
@@ -39,6 +40,22 @@ export default function CookMenu() {
   function cancelEdit() {
     setEditingId(null);
     setItem(blankItem);
+  }
+
+  function startEditPlan(row) {
+    setEditingPlan(true);
+    setPlan({
+      type: row.type,
+      price: String(row.price),
+      description: row.description || "",
+      includedMeals: Array.isArray(row.includedMeals) ? row.includedMeals.join(", ") : row.includedMeals || "Lunch",
+    });
+    setMessage("");
+  }
+
+  function cancelEditPlan() {
+    setEditingPlan(false);
+    setPlan(blankPlan);
   }
 
   async function saveItem(e) {
@@ -75,7 +92,8 @@ export default function CookMenu() {
       method: "POST",
       body: JSON.stringify({ ...plan, price: Number(plan.price) }),
     });
-    setPlan(blankPlan);
+    setMessage(editingPlan ? "Meal plan updated." : "Meal plan saved.");
+    cancelEditPlan();
     load();
   }
 
@@ -165,37 +183,63 @@ export default function CookMenu() {
       <div>
         <h2 className="page-title">Meal plans</h2>
         <form className="card mt-4 space-y-2" onSubmit={addPlan}>
-          <select className="input" value={plan.type} onChange={(e) => setPlan({ ...plan, type: e.target.value })}>
+          <p className="text-sm font-semibold text-ink/70">{editingPlan ? "Edit meal plan" : "Add meal plan"}</p>
+          <select
+            className="input"
+            value={plan.type}
+            onChange={(e) => setPlan({ ...plan, type: e.target.value })}
+            disabled={editingPlan}
+          >
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
           </select>
           <input className="input" type="number" placeholder="Price" value={plan.price} onChange={(e) => setPlan({ ...plan, price: e.target.value })} required />
           <input className="input" placeholder="Description" value={plan.description} onChange={(e) => setPlan({ ...plan, description: e.target.value })} />
-          <Hint text="Save this daily, weekly, or monthly plan so customers can subscribe.">
-            <button className="btn-sage w-full sm:w-auto" type="submit">
-              Save plan
-            </button>
-          </Hint>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Hint text={editingPlan ? "Update this plan’s price and description for customers." : "Save this daily, weekly, or monthly plan so customers can subscribe."}>
+              <button className="btn-sage w-full sm:w-auto" type="submit">
+                {editingPlan ? "Update plan" : "Save plan"}
+              </button>
+            </Hint>
+            {editingPlan && (
+              <Hint text="Discard plan edits and clear the form.">
+                <button className="btn-ghost w-full sm:w-auto" type="button" onClick={cancelEditPlan}>
+                  Cancel
+                </button>
+              </Hint>
+            )}
+          </div>
         </form>
         <div className="mt-4 space-y-2">
           {plans.map((row) => (
             <div key={row._id} className="card flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-              <p className="capitalize">
-                {row.type} · ₹{row.price}
-              </p>
-              <Hint text="Delete this meal plan so customers can no longer subscribe to it.">
-                <button
-                  className="btn-ghost w-full sm:w-auto"
-                  type="button"
-                  onClick={async () => {
-                    await api(`/api/menus/plans/${row._id}`, { method: "DELETE" });
-                    load();
-                  }}
-                >
-                  Remove
-                </button>
-              </Hint>
+              <div className="min-w-0">
+                <p className="capitalize font-semibold">
+                  {row.type} · ₹{row.price}
+                </p>
+                {row.description && <p className="text-sm text-ink/55">{row.description}</p>}
+              </div>
+              <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+                <Hint text="Load this plan into the form to change price or description.">
+                  <button className="btn-ghost w-full sm:w-auto" type="button" onClick={() => startEditPlan(row)}>
+                    Edit
+                  </button>
+                </Hint>
+                <Hint text="Delete this meal plan so customers can no longer subscribe to it.">
+                  <button
+                    className="btn-ghost w-full sm:w-auto"
+                    type="button"
+                    onClick={async () => {
+                      await api(`/api/menus/plans/${row._id}`, { method: "DELETE" });
+                      if (editingPlan && plan.type === row.type) cancelEditPlan();
+                      load();
+                    }}
+                  >
+                    Remove
+                  </button>
+                </Hint>
+              </div>
             </div>
           ))}
         </div>

@@ -53,11 +53,13 @@ Deployment-ready: `client` production build, `server` `npm start`, Atlas + Rende
 
 **Completed in code:** notifications API, menu edit/availability, advanced KPIs, responsive UI.
 
-**Still requires your hosting accounts:**
+**Live URLs:**
 
-- Frontend:
-- API:
-- Health check:
+- Frontend: https://home-feast-sigma.vercel.app
+- API: https://homefeast-hqmf.onrender.com
+- Health check: https://homefeast-hqmf.onrender.com/api/health
+
+**Note on “nearby”:** Customers can filter by **city / service area**, or use **Near me** (browser GPS + km radius). Cooks save a kitchen pin via “Use my location” on their profile. Full map markers (Google/Mapbox) are still future work.
 
 ## 6. Impact (expected)
 

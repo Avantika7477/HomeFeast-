@@ -34,7 +34,7 @@ MongoDB
 ## Collections
 
 - **User** — name, email, password, role, city, address
-- **CookProfile** — kitchen, city, serviceAreas, cuisines, timings, status, ratings
+- **CookProfile** — kitchen, city, serviceAreas, cuisines, timings, status, ratings, optional GeoJSON `location` (`[lng, lat]`) for Near me
 - **MenuItem** — dish, veg/non-veg, price, availability
 - **MealPlan** — daily / weekly / monthly price per cook
 - **Order** — one-time request, status pending → accepted/rejected/completed
@@ -42,6 +42,7 @@ MongoDB
 - **Review** — one per completed order; updates cook averages
 - **Category** — cuisine or menu label
 - **Complaint** — open / in-progress / resolved
+- **Notification** — in-app alerts for orders, subscriptions, approvals, complaints
 
 ## REST map
 
@@ -50,8 +51,8 @@ MongoDB
 | GET | `/api/health` | public |
 | POST | `/api/auth/register` `/login` | public |
 | GET/PATCH | `/api/auth/me` | any logged-in |
-| GET | `/api/cooks` `/api/cooks/:id` | public (approved only) |
-| GET/PUT | `/api/cooks/me` | cook |
+| GET | `/api/cooks` `/api/cooks/:id` | public (approved only); list supports `lat`, `lng`, `radiusKm` for Near me |
+| GET/PUT | `/api/cooks/me` | cook (PUT accepts `lat`/`lng` or `clearLocation`) |
 | CRUD | `/api/menus/items` `/plans` | cook |
 | POST/GET | `/api/orders` | customer / cook |
 | POST/GET | `/api/subscriptions` | customer / cook |
@@ -61,7 +62,7 @@ MongoDB
 | GET/PATCH | `/api/notifications` | logged-in user |
 | GET/PATCH | `/api/admin/*` | admin |
 
-Public cook list **always** filters `status: approved`.
+Public cook list **always** filters `status: approved`. Near me returns only cooks who saved a GPS pin, with `distanceKm`.
 
 ## Environment
 

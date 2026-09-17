@@ -18,6 +18,12 @@ Suggested service: **Web service**, Node, root `server/`.
 - Start: `npm start`
 - Env: `MONGO_URI`, `JWT_SECRET`, `CLIENT_URL` (your Vercel/Netlify URL), `PORT` (platform sets this)
 
+**Security:** set a long random `JWT_SECRET` in production (never reuse the local/dev value). Generate one with:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
 After first deploy, run seed from a one-off shell: `npm run seed`.
 
 `render.yaml` in the repo is a starting blueprint.
@@ -47,4 +53,8 @@ SPA fallback: all routes → `index.html` (Vite default on Vercel). Netlify `_re
 - [ ] Cook can edit menu and toggle availability
 - [ ] Admin KPI page shows conversion, MAU, retention
 
-Live URLs depend on the project owner’s accounts. After deploy, paste them at the top of `docs/final-report.md`.
+**Live (current):**
+
+- Frontend: https://home-feast-sigma.vercel.app
+- API: https://homefeast-hqmf.onrender.com
+- Health: https://homefeast-hqmf.onrender.com/api/health

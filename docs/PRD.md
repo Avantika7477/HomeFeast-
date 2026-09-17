@@ -35,6 +35,7 @@ HomeFeast is a **web** platform that connects customers (students, professionals
 
 - Responsive web app
 - Listings, search, filters (meal type, price, plan, cuisine, city)
+- Simple GPS “Near me” (browser location + km radius; no map tiles / API keys)
 - Cook profile, menu, ratings
 - One-time orders and subscriptions
 - Cook accept/reject
@@ -45,7 +46,7 @@ HomeFeast is a **web** platform that connects customers (students, professionals
 
 - Native mobile apps
 - Online payments and wallet
-- Google Maps / GPS radius
+- Full map UI (Google Maps / Mapbox markers)
 - AI meal recommendations
 - Cloud kitchen integrations
 - Nutrition / calorie tracking
@@ -66,7 +67,7 @@ Future report metrics: conversion rate, cook onboarding rate, MAU, retention —
 - Cooks provide hygienic food; admin approval is the quality gate.
 - Users prefer subscriptions; v1 still supports one-time orders.
 - Fixed timeline (15 Sep 2026), limited budget, web only.
-- “Nearby” means same city / listed service area, not GPS.
+- “Nearby” supports **city / service area** filters and optional **simple GPS** (browser lat/lng + km radius). Full map markers remain future work.
 
 ## 10. Deliverables
 
