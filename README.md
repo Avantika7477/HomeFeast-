@@ -51,7 +51,6 @@ Password for all: `Demo@123`
 
 | Role | Email |
 | --- | --- |
-| Admin | admin@homefeast.com |
 | Customer | student@homefeast.com |
 | Cook (approved, Pune) | sunita@homefeast.com |
 | Cook (pending) | pending@homefeast.com |
